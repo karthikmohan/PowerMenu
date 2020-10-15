@@ -18,15 +18,10 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
-    implementation "androidx.appcompat:appcompat:$versions.androidxAppcompat"
-    implementation "androidx.cardview:cardview:$versions.cardView"
+    implementation "com.google.android.material:material:$versions.googleMaterial"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.lifecycle"
 }
 
-tasks.withType(Javadoc) {
-    excludes = ['**/*.kt']
-    options.addBooleanOption('Xdoclint:none', true)
-}
+tasks.withType(Javadoc).all { enabled = false }
 
 apply from: '../spotless.gradle'

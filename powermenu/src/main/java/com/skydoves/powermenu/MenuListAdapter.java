@@ -17,6 +17,7 @@
 package com.skydoves.powermenu;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.Gravity;
@@ -28,6 +29,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
+import com.skydoves.powermenu.annotations.Dp;
 import com.skydoves.powermenu.annotations.Sp;
 import com.skydoves.powermenu.databinding.ItemPowerMenuBinding;
 
@@ -42,7 +45,10 @@ public class MenuListAdapter extends MenuBaseAdapter<PowerMenuItem> implements I
   @ColorInt private int menuColor = -2;
   @ColorInt private int selectedTextColor = -2;
   @ColorInt private int selectedMenuColor = -2;
+  @ColorInt private int iconColor = -2;
   @Sp private int textSize = 12;
+  @Dp private int iconSize = 35;
+  @Dp private int iconPadding = 7;
   private int textGravity = Gravity.START;
   private Typeface textTypeface = null;
 
@@ -76,7 +82,16 @@ public class MenuListAdapter extends MenuBaseAdapter<PowerMenuItem> implements I
     }
 
     if (powerMenuItem.icon != 0) {
+      icon.getLayoutParams().width = ConvertUtil.convertDpToPixel(iconSize, context);
+      icon.getLayoutParams().height = ConvertUtil.convertDpToPixel(iconSize, context);
       icon.setImageResource(powerMenuItem.icon);
+      if (iconColor != -2) {
+        ImageViewCompat.setImageTintList(icon, ColorStateList.valueOf(iconColor));
+      }
+      if (icon.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+        ((ViewGroup.MarginLayoutParams) icon.getLayoutParams()).rightMargin =
+            ConvertUtil.convertDpToPixel(iconPadding, context);
+      }
       icon.setVisibility(View.VISIBLE);
     } else {
       icon.setVisibility(View.GONE);
@@ -158,6 +173,21 @@ public class MenuListAdapter extends MenuBaseAdapter<PowerMenuItem> implements I
   @Override
   public void setTextSize(@Sp int size) {
     this.textSize = size;
+  }
+
+  @Override
+  public void setIconSize(int iconSize) {
+    this.iconSize = iconSize;
+  }
+
+  @Override
+  public void setIconColor(int iconColor) {
+    this.iconColor = iconColor;
+  }
+
+  @Override
+  public void setIconPadding(int iconPadding) {
+    this.iconPadding = iconPadding;
   }
 
   @Override
