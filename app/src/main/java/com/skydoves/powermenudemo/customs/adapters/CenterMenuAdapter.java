@@ -36,8 +36,7 @@ public class CenterMenuAdapter extends MenuBaseAdapter<String> {
     final Context context = viewGroup.getContext();
 
     if (view == null) {
-      LayoutInflater inflater =
-          (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      LayoutInflater inflater = LayoutInflater.from(context);
       assert inflater != null;
       view = inflater.inflate(R.layout.item_title_menu, viewGroup, false);
     }

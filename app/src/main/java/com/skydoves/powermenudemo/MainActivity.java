@@ -30,6 +30,7 @@ import com.skydoves.powermenu.PowerMenuItem;
 import com.skydoves.powermenudemo.customs.adapters.CenterMenuAdapter;
 import com.skydoves.powermenudemo.customs.adapters.CustomDialogMenuAdapter;
 import com.skydoves.powermenudemo.customs.items.NameCardMenuItem;
+import com.skydoves.powermenudemo.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
   private PowerMenu dialogMenu;
   private CustomPowerMenu<NameCardMenuItem, CustomDialogMenuAdapter> customDialogMenu;
   private PowerMenu iconMenu;
-  private OnMenuItemClickListener<PowerMenuItem> onHamburgerItemClickListener =
+  private final OnMenuItemClickListener<PowerMenuItem> onHamburgerItemClickListener =
       new OnMenuItemClickListener<PowerMenuItem>() {
         @Override
         public void onItemClick(int position, PowerMenuItem item) {
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
           hamburgerMenu.setSelectedPosition(position);
         }
       };
-  private OnDismissedListener onHamburgerMenuDismissedListener =
+  private final OnDismissedListener onHamburgerMenuDismissedListener =
       () -> Log.d("Test", "onDismissed hamburger menu");
-  private OnMenuItemClickListener<PowerMenuItem> onProfileItemClickListener =
+  private final OnMenuItemClickListener<PowerMenuItem> onProfileItemClickListener =
       new OnMenuItemClickListener<PowerMenuItem>() {
         @Override
         public void onItemClick(int position, PowerMenuItem item) {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
           profileMenu.dismiss();
         }
       };
-  private OnMenuItemClickListener<String> onWriteItemClickListener =
+  private final OnMenuItemClickListener<String> onWriteItemClickListener =
       new OnMenuItemClickListener<String>() {
         @Override
         public void onItemClick(int position, String title) {
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
           writeMenu.dismiss();
         }
       };
-  private OnMenuItemClickListener<String> onAlertItemClickListener =
+  private final OnMenuItemClickListener<String> onAlertItemClickListener =
       new OnMenuItemClickListener<String>() {
         @Override
         public void onItemClick(int position, String title) {
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
           alertMenu.dismiss();
         }
       };
-  private OnMenuItemClickListener<PowerMenuItem> onIconMenuItemClickListener =
+  private final OnMenuItemClickListener<PowerMenuItem> onIconMenuItemClickListener =
       new OnMenuItemClickListener<PowerMenuItem>() {
         @Override
         public void onItemClick(int position, PowerMenuItem item) {
@@ -83,10 +84,15 @@ public class MainActivity extends AppCompatActivity {
         }
       };
 
+  private ActivityMainBinding binding;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+
+    binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+    setContentView(binding.getRoot());
 
     hamburgerMenu =
         PowerMenuUtils.getHamburgerPowerMenu(
@@ -151,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
       dialogMenu.dismiss();
       return;
     }
-    View layout = findViewById(R.id.layout_main);
+    View layout = binding.getRoot();
     dialogMenu.showAtCenter(layout);
   }
 
@@ -160,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
       customDialogMenu.dismiss();
       return;
     }
-    View layout = findViewById(R.id.layout_main);
+    View layout = binding.getRoot();
     customDialogMenu.showAtCenter(layout);
   }
 
@@ -169,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
       writeMenu.dismiss();
       return;
     }
-    View layout = findViewById(R.id.layout_main);
+    View layout = binding.getRoot();
     writeMenu.showAtCenter(layout);
   }
 
@@ -178,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
       alertMenu.dismiss();
       return;
     }
-    View layout = findViewById(R.id.layout_main);
+    View layout = binding.getRoot();
     alertMenu.showAtCenter(layout);
   }
 

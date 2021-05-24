@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused")
+package com.skydoves.powermenu;
 
-package com.skydoves.powermenu.kotlin
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.util.TypedValue;
+import androidx.annotation.RestrictTo;
 
-import android.content.Context
-import androidx.annotation.MainThread
-import com.skydoves.powermenu.PowerMenu
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)
+class ResourceUtil {
 
-@DslMarker
-internal annotation class PowerMenuDsl
-
-/** creates an instance of [PowerMenu] by [PowerMenu.Builder] using kotlin dsl. */
-@MainThread
-@PowerMenuDsl
-@JvmSynthetic
-inline fun createPowerMenu(context: Context, crossinline block: PowerMenu.Builder.() -> Unit): PowerMenu =
-  PowerMenu.Builder(context).apply(block).build()
+  protected static int getAccentColor(Context context) {
+    TypedValue typedValue = new TypedValue();
+    TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[] {R.attr.colorAccent});
+    int color = a.getColor(0, 0);
+    a.recycle();
+    return color;
+  }
+}

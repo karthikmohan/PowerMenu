@@ -14,20 +14,12 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused")
-
 package com.skydoves.powermenu.kotlin
 
+import android.app.Activity
 import android.content.Context
-import androidx.annotation.MainThread
-import com.skydoves.powermenu.PowerMenu
 
-@DslMarker
-internal annotation class PowerMenuDsl
-
-/** creates an instance of [PowerMenu] by [PowerMenu.Builder] using kotlin dsl. */
-@MainThread
-@PowerMenuDsl
-@JvmSynthetic
-inline fun createPowerMenu(context: Context, crossinline block: PowerMenu.Builder.() -> Unit): PowerMenu =
-  PowerMenu.Builder(context).apply(block).build()
+/** returns if an Activity is finishing or not. */
+internal fun Context.isFinishing(): Boolean {
+  return this is Activity && this.isFinishing
+}
